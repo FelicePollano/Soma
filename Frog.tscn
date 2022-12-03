@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://frog.png" type="Texture" id=1]
+
+[node name="Frog" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+rotation = 3.14159
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 1 )
