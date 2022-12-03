@@ -1,8 +1,14 @@
 extends Node2D
 
 var type
+var timestamp
+var is_match=false
 var fire_angle=0.0
 
+func set_match(t):
+	timestamp=t
+	is_match=true
+	$KinematicBody2D/Particles2D.emitting=true
 
 func set_type(t):
 	type=t
