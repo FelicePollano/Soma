@@ -14,6 +14,11 @@ func create() -> PathFollow2D:
 	
 	return follower
 	
+func create_bullet() -> Node2D:
+	var b = ball.instance()
+	var color = rnd.randi_range(0,4)
+	b.set_type(color)
+	return b
 
 
 

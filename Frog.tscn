@@ -1,10 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://frog.png" type="Texture" id=1]
+[ext_resource path="res://frog_scale.png" type="Texture" id=1]
+[ext_resource path="res://Frog.gd" type="Script" id=2]
 
 [node name="Frog" type="Node2D"]
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 rotation = 3.14159
-scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 1 )

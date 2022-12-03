@@ -1,6 +1,8 @@
 extends Node2D
 
 var type
+var fire_angle=0.0
+
 
 func set_type(t):
 	type=t
