@@ -5,6 +5,7 @@ var fire_position=56
 var ball_factory = BallFactory.new()
 var charging=false
 var fire = false
+var change = false
 var ball
 func _input(event):
    # Mouse in viewport coordinates.
@@ -14,6 +15,9 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:
 			fire=true
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_RIGHT and event.pressed:
+			change=true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -37,11 +41,19 @@ func _physics_process(delta: float) -> void:
 	if ball.position.y >= fire_position:
 		charging=false
 	if ball.position.y >= fire_position && fire:
-		get_parent().fire(ball.get_child(0).global_position,$Sprite.rotation+PI/2,ball.type)
+		get_parent().fire(ball.global_position,$Sprite.rotation+PI/2,ball.type)
 		$Sprite.remove_child(ball)
 		ball.queue_free()
 		spawn()
 		charging=true
 		fire=false
+		change=false
+	if ball.position.y >= fire_position && change:
+		$Sprite.remove_child(ball)
+		ball.queue_free()
+		spawn()
+		charging=true
+		fire=false
+		change=false
 		
 		

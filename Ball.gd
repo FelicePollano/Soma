@@ -16,7 +16,7 @@ func set_type(t):
 		3:
 			$KinematicBody2D/MeshInstance2D.modulate=Color(0,0,1,1)
 		4:
-			pass
+			$KinematicBody2D/MeshInstance2D.modulate=Color(1,1,1,1)
 
 
 # Called when the node enters the scene tree for the first time.
