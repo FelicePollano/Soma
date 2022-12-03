@@ -8,7 +8,7 @@ var bullets=[]
 var pull_speed = 50.0
 var bullet_speed=800
 var ball_distance = 32
-var level_max_balls = 150
+var level_max_balls = 78
 var lost = false;
 var frog = preload("res://Frog.tscn")
 # Called when the node enters the scene tree for the first time.
