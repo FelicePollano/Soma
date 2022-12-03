@@ -152,7 +152,8 @@ func arrange_strips():
 		var temp = main_strip.slice(0,from-1)
 		var throw = main_strip.slice(from,to)
 		main_strip=main_strip.slice(to+1,main_strip.size()-1)
-		small_strips.append(temp)
+		if from > 0:
+			small_strips.append(temp)
 		for i in range(0,throw.size()):
 			$Path2D.remove_child(throw[i]);
 			throw[i].queue_free()
@@ -169,7 +170,9 @@ func collapse_residuals():
 				for q in range(0,small_strips[i].size()):
 					new_main.append(small_strips[i][q])
 				small_strips.remove(i)
+				var contact_index=new_main.size()-1
 				for q in range(0,main_strip.size()):
 					new_main.append(main_strip[q])
 				main_strip=new_main
+				mark_matches(contact_index,main_strip)
 		

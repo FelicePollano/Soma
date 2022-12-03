@@ -8,7 +8,7 @@ func create() -> PathFollow2D:
 	var follower=PathFollow2D.new()
 	follower.loop=false
 	var b = ball.instance()
-	var color = rnd.randi_range(0,4)
+	var color = rnd.randi_range(0,3)
 	b.set_type(color)
 	follower.add_child(b)
 	
@@ -16,7 +16,7 @@ func create() -> PathFollow2D:
 	
 func create_bullet() -> Node2D:
 	var b = ball.instance()
-	var color = rnd.randi_range(0,4)
+	var color = rnd.randi_range(0,3)
 	b.set_type(color)
 	return b
 
