@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://sounds/539854__za-games__billiard-ball-clack.wav" type="AudioStream" id=1]
+[ext_resource path="res://sounds/432592__coral-island-studios__billiards3.wav" type="AudioStream" id=2]
+[ext_resource path="res://sounds/182345__claire-h__stone-mechanisem-loop-01.wav" type="AudioStream" id=3]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Strike" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="Clack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+
+[node name="Rolling" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
