@@ -1,6 +1,6 @@
 # Soma
 Soma is a game wrote for fun. Initial version was made in a weekend thanks to [Godot](https://godotengine.org/) engine in playn GDScript.
-Soma is a Zuma inspired game, it features the following features
+Soma is a Zuma inspired game, it features the following topics
 
 - collision detection
 - sprites
