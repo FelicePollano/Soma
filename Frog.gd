@@ -5,6 +5,7 @@ var fire_position=56
 var ball_factory = BallFactory.new()
 var charging=false
 var fire = false
+var fire_effect=false
 var change = false
 var ball
 func _input(event):
@@ -26,8 +27,13 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _process(delta: float) -> void:
+	if charging && !$Charge.playing:
+		$Charge.play()
+	if fire_effect:
+		$Spit.play()
+		fire_effect=false
+	
 
 func spawn():
 	ball=ball_factory.create_bullet()
@@ -41,6 +47,7 @@ func _physics_process(delta: float) -> void:
 	if ball.position.y >= fire_position:
 		charging=false
 	if ball.position.y >= fire_position && fire:
+		fire_effect=true
 		get_parent().fire(ball.global_position,$Sprite.rotation+PI/2,ball.type)
 		$Sprite.remove_child(ball)
 		ball.queue_free()

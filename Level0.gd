@@ -11,14 +11,22 @@ var ball_distance = 32
 var level_max_balls = 68
 var lost = false;
 var frog = preload("res://Frog.tscn")
+var collision_happend =false #for audio effects out of physics loop
+var collapse_happened =false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	spawn_balls(ball_distance)
 	spawn_frog()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _process(delta: float) -> void:
+	if collision_happend:
+		$Clack.play()
+		collision_happend=false
+	if collapse_happened:
+		$Strike.play()
+		collapse_happened=false
+	pass
 
 func _physics_process(delta: float) -> void:
 	#move projectiles
@@ -90,6 +98,7 @@ func move_bullets(delta):
 			var v = Vector2(Vector2(cos(bullets[i].fire_angle), sin(bullets[i].fire_angle)))
 			var collision = bullets[i].get_child(0).move_and_collide(v*bullet_speed*delta)
 			if collision:
+				collision_happend=true
 				fit_new_ball(bullets[i],collision.collider)
 				bullets.remove(i)
 				dirty=true
@@ -103,8 +112,10 @@ func fit_new_ball(ball,target):
 	#looks for the path follower from KinematicBody child
 	var follower = target.get_node("../../")
 	done = fit_in_strip(follower,main_strip,new)
+	collision_happend=done
 	for i in range(0,small_strips.size()):
 			if fit_in_strip(follower,small_strips[i],new):
+				collision_happend=true
 				break
 	remove_child(ball)
 
@@ -176,6 +187,7 @@ func collapse_residuals():
 			if small_strips[i][small_strips[i].size()-1].offset-ball_distance<=main_strip[0].offset:
 				var new_main=[]
 				dirty=true
+				collapse_happened=true
 				#small strip is in reverse order, the puller will be the last index
 				for q in range(0,small_strips[i].size()):
 					new_main.append(small_strips[i][q])

@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Level0.gd" type="Script" id=1]
+[ext_resource path="res://sounds/432592__coral-island-studios__billiards3.wav" type="AudioStream" id=2]
+[ext_resource path="res://sounds/539854__za-games__billiard-ball-clack.wav" type="AudioStream" id=3]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -16,3 +18,9 @@ curve = SubResource( 1 )
 
 [node name="FrogPosition" type="Position2D" parent="."]
 position = Vector2( 411.94, 357.15 )
+
+[node name="Strike" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="Clack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
