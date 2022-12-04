@@ -5,7 +5,7 @@ var main_strip =[]  #the main pulling strip. pulling ball
 var small_strips=[]
 var bullets=[]
 					#is at index 0
-var pull_speed = 5.0
+var pull_speed = 50.0
 var bullet_speed=800
 var ball_distance = 32
 var level_max_balls = 68
@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 			lost=true
 	#move residual strips
 	for i in range(0,small_strips.size()):
-		adjusted_speed = pull_speed #+max(0,(300-small_strips[i].size()*12))
+		adjusted_speed = pull_speed +max(0,(300-small_strips[i].size()*12))
 		move_a_strip(small_strips[i],-adjusted_speed,delta)
 
 func move_a_strip(strip,speed,delta) -> float:
