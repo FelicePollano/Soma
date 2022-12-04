@@ -153,8 +153,8 @@ func fit_in_strip(follower,strip,ball)->bool:
 
 func mark_matches(index,vector):
 	var type = vector[index].get_child(0).type
-	var _min = index
-	var _max = index
+	var _min = 0
+	var _max = vector.size()-1
 	
 	for i in range(index,vector.size()):
 		if vector[i].get_child(0).type != type:
