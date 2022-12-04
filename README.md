@@ -17,4 +17,6 @@ Soma is not supposed to be a professional game, it has a single level, it is ( a
 
 Feel free to help on doing this project/example better.
 
+[Here a video showing how it works](https://www.facebook.com/1412192133/videos/477612741021491/)
+
 
