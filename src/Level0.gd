@@ -147,7 +147,7 @@ func mark_matches(index,vector):
 	var type = vector[index].get_child(0).type
 	var _min = index
 	var _max = index
-	var i=0
+	
 	for i in range(index,vector.size()):
 		if vector[i].get_child(0).type != type:
 			_max = i-1
