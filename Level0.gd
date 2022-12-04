@@ -13,6 +13,7 @@ var lost = false;
 var frog = preload("res://Frog.tscn")
 var collision_happend =false #for audio effects out of physics loop
 var collapse_happened =false
+var play_roll = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	spawn_balls(ball_distance)
@@ -26,6 +27,11 @@ func _process(delta: float) -> void:
 	if collapse_happened:
 		$Strike.play()
 		collapse_happened=false
+	if !play_roll:
+		$Rolling.stop()
+	if play_roll && !$Rolling.playing:
+		$Rolling.play()
+		play_roll=false
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -46,6 +52,8 @@ func _physics_process(delta: float) -> void:
 				adjusted_speed=pull_speed
 		else: 
 			adjusted_speed=800
+		if adjusted_speed>300:
+			play_roll=true
 		var last_offset=move_a_strip(main_strip,adjusted_speed,delta)
 		#spawn new balls
 		if last_offset >= ball_distance && level_max_balls>0:
@@ -56,6 +64,8 @@ func _physics_process(delta: float) -> void:
 	#move residual strips
 	for i in range(0,small_strips.size()):
 		adjusted_speed = pull_speed +max(0,(300-small_strips[i].size()*12))
+		#if adjusted_speed>100:
+		#	play_roll=true
 		move_a_strip(small_strips[i],-adjusted_speed,delta)
 
 func move_a_strip(strip,speed,delta) -> float:
