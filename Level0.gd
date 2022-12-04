@@ -5,10 +5,10 @@ var main_strip =[]  #the main pulling strip. pulling ball
 var small_strips=[]
 var bullets=[]
 					#is at index 0
-var pull_speed = 50.0
+var pull_speed = 5.0
 var bullet_speed=800
 var ball_distance = 32
-var level_max_balls = 78
+var level_max_balls = 68
 var lost = false;
 var frog = preload("res://Frog.tscn")
 # Called when the node enters the scene tree for the first time.
@@ -32,7 +32,10 @@ func _physics_process(delta: float) -> void:
 		
 		
 		if not lost:
-			adjusted_speed = pull_speed+max(0,(300-main_strip.size()*12))
+			if level_max_balls > 20:
+				adjusted_speed = pull_speed+max(0,(300-main_strip.size()*12))
+			else:
+				adjusted_speed=pull_speed
 		else: 
 			adjusted_speed=800
 		var last_offset=move_a_strip(main_strip,adjusted_speed,delta)
@@ -44,7 +47,7 @@ func _physics_process(delta: float) -> void:
 			lost=true
 	#move residual strips
 	for i in range(0,small_strips.size()):
-		adjusted_speed = pull_speed+max(0,(300-small_strips[i].size()*12))
+		adjusted_speed = pull_speed #+max(0,(300-small_strips[i].size()*12))
 		move_a_strip(small_strips[i],-adjusted_speed,delta)
 
 func move_a_strip(strip,speed,delta) -> float:
@@ -97,20 +100,27 @@ func fit_new_ball(ball,target):
 	var new = ball_factory.create()
 	new.get_child(0).set_type(ball.type)
 	var done = false
-	for i in range(0,main_strip.size()):
-		#looks for the path follower from KinematicBody child
-		var follower = target.get_node("../../")
-		if(main_strip[i] == follower ):
-			if i==0:
-				new.offset=main_strip[0].offset
-			main_strip.insert(i,new)
-			mark_matches(i,main_strip)
-			main_strip[0].offset+=ball_distance #make longer one ball
-			done = true
-			$Path2D.add_child(new)
-			break
-	
+	#looks for the path follower from KinematicBody child
+	var follower = target.get_node("../../")
+	done = fit_in_strip(follower,main_strip,new)
+	for i in range(0,small_strips.size()):
+			if fit_in_strip(follower,small_strips[i],new):
+				break
 	remove_child(ball)
+
+func fit_in_strip(follower,strip,ball)->bool:
+	var done = false
+	for i in range(0,strip.size()):
+		if(strip[i] == follower ):
+			if i==0:
+				ball.offset=strip[0].offset
+			strip.insert(i,ball)
+			mark_matches(i,strip)
+			strip[0].offset+=ball_distance #make longer one ball
+			done = true
+			$Path2D.add_child(ball)
+			break
+	return done
 
 func mark_matches(index,vector):
 	var type = vector[index].get_child(0).type
