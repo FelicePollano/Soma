@@ -182,6 +182,7 @@ func arrange_strips():
 			from=i
 			break
 	if from != - 1:
+		to=main_strip.size()-1
 		for i in range (from,main_strip.size()):
 			if !main_strip[i].get_child(0).is_match:
 				to=i-1
