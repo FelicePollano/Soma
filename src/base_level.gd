@@ -40,7 +40,15 @@ func _process(delta: float) -> void:
 	if play_roll && !sounds_instance.get_node("Rolling").playing:
 		sounds_instance.get_node("Rolling").play()
 		play_roll=false
-	pass
+	if lost && 0==get_balls_count():
+		get_tree().change_scene("res://Level_Choose.tscn")
+	if !lost && 0 == get_balls_count():
+		var current = get_tree().get_current_scene().get_name()
+		current.replace("//res://Level","")
+		var nextLevel = int(current)+1
+		var e = get_tree().change_scene("res://Level%s.tscn"%nextLevel)
+		if e != OK:
+			get_tree().change_scene("res://Level_Choose.tscn")
 
 func _physics_process(delta: float) -> void:
 	#move projectiles
@@ -75,6 +83,12 @@ func _physics_process(delta: float) -> void:
 		#if adjusted_speed>100:
 		#	play_roll=true
 		move_a_strip(small_strips[i],-adjusted_speed,delta)
+
+func get_balls_count()->int:
+	var l=main_strip.size()
+	for i in range(small_strips.size()):
+		l+=small_strips.size()
+	return l
 
 func move_a_strip(strip,speed,delta) -> float:
 	#move pulling ball

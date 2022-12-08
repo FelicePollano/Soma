@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://grungy-rough-concrete-wall.jpg" type="Texture" id=1]
+[ext_resource path="res://Diner-Obese.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Level_Choose.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+outline_color = Color( 0.666667, 0.152941, 0.152941, 1 )
+font_data = ExtResource( 2 )
+
+[node name="Level_Choose" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 1020.0
+margin_bottom = 601.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 371.142
+margin_top = 43.4142
+margin_right = 642.142
+margin_bottom = 118.414
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.470588, 0.156863, 0.156863, 1 )
+text = "Choose Level"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_level0" type="Button" parent="."]
+margin_left = 438.09
+margin_top = 136.644
+margin_right = 591.09
+margin_bottom = 176.644
+text = "Level 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button_level1" type="Button" parent="."]
+margin_left = 440.0
+margin_top = 195.0
+margin_right = 593.0
+margin_bottom = 235.0
+text = "Level 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}

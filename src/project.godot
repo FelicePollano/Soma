@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Soma"
-run/main_scene="res://Level1.tscn"
+run/main_scene="res://Level_Choose.tscn"
 config/icon="res://icon.png"
 
 [rendering]
