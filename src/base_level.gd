@@ -199,7 +199,6 @@ func arrange_strips():
 			small_strips.remove(small_strips.find(temp))
 			main_strip=temp
 		for i in range(0,throw.size()):
-			print ("remove %s" % i)
 			$Path2D.remove_child(throw[i]);
 			throw[i].queue_free()
 		
