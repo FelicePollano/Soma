@@ -187,6 +187,8 @@ func mark_matches(index,vector):
 		
 	
 func arrange_strips():
+	if get_balls_count()==0:
+		return
 	var dirty = true
 	var ts = OS.get_ticks_msec()
 	var from=-1
@@ -201,21 +203,24 @@ func arrange_strips():
 			if !main_strip[i].get_child(0).is_match:
 				to=i-1
 				break
+	
 	if to > from:
 		#slice array
 		var temp = main_strip.slice(0,from-1)
+		if from == 0:
+			temp = []
 		var throw = main_strip.slice(from,to)
-		
 		main_strip=main_strip.slice(to+1,main_strip.size()-1)
 		if from > 0 && main_strip.size()>0:
 			small_strips.append(temp)
 		if main_strip.size()==0:
-			small_strips.remove(small_strips.find(temp))
 			main_strip=temp
+			small_strips.remove(small_strips.find(temp))
+			
 		for i in range(0,throw.size()):
 			$Path2D.remove_child(throw[i]);
 			throw[i].queue_free()
-		
+		print("S=%s"%main_strip.size())
 func collapse_residuals():
 	var dirty=true
 	while dirty:
