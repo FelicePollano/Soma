@@ -191,10 +191,15 @@ func arrange_strips():
 		#slice array
 		var temp = main_strip.slice(0,from-1)
 		var throw = main_strip.slice(from,to)
+		
 		main_strip=main_strip.slice(to+1,main_strip.size()-1)
-		if from > 0:
+		if from > 0 && main_strip.size()>0:
 			small_strips.append(temp)
+		if main_strip.size()==0:
+			small_strips.remove(small_strips.find(temp))
+			main_strip=temp
 		for i in range(0,throw.size()):
+			print ("remove %s" % i)
 			$Path2D.remove_child(throw[i]);
 			throw[i].queue_free()
 		
