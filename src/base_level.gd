@@ -12,7 +12,8 @@ export var pull_speed = 50.0
 export var bullet_speed=800
 export var ball_distance = 32
 export var level_max_balls = 60
-var lost = false;
+var lost = false
+var victory_timer
 var frog = preload("res://Frog.tscn")
 var sounds = preload("res://LevelSounds.tscn")
 var collision_happend =false #for audio effects out of physics loop
@@ -21,10 +22,18 @@ var play_roll = false
 var sounds_instance
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	victory_timer = Timer.new()
+	victory_timer.autostart=false
+	victory_timer.wait_time=2.0
+	victory_timer.one_shot=true
+	victory_timer.connect("timeout",self,"next_level")
+	add_child(victory_timer)
+	
 	sounds_instance=sounds.instance()
 	add_child(sounds_instance)
 	spawn_balls(ball_distance)
 	spawn_frog()
+	
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,13 +51,14 @@ func _process(delta: float) -> void:
 		play_roll=false
 	if lost && 0==get_balls_count():
 		get_tree().change_scene("res://Level_Choose.tscn")
+		
 	if !lost && 0 == get_balls_count():
-		var current = get_tree().get_current_scene().get_name()
-		current.replace("//res://Level","")
-		var nextLevel = int(current)+1
-		var e = get_tree().change_scene("res://Level%s.tscn"%nextLevel)
-		if e != OK:
-			get_tree().change_scene("res://Level_Choose.tscn")
+		if victory_timer.is_stopped():
+			victory_timer.start() #if we change level immediately, sound will stop to play
+		if !sounds_instance.get_node("Victory").playing:
+			sounds_instance.get_node("Victory").play()
+		
+		
 
 func _physics_process(delta: float) -> void:
 	#move projectiles
@@ -84,6 +94,15 @@ func _physics_process(delta: float) -> void:
 		#	play_roll=true
 		move_a_strip(small_strips[i],-adjusted_speed,delta)
 
+func next_level():
+	var current = get_tree().get_current_scene().get_name()
+	current.replace("//res://Level","")
+	var nextLevel = int(current)+1
+	var e = get_tree().change_scene("res://Level%s.tscn"%nextLevel)
+	if e != OK:
+		get_tree().change_scene("res://Level_Choose.tscn")
+		
+		
 func get_balls_count()->int:
 	var l=main_strip.size()
 	for i in range(small_strips.size()):

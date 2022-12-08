@@ -25,8 +25,8 @@ margin_left = 371.142
 margin_top = 43.4142
 margin_right = 642.142
 margin_bottom = 118.414
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.470588, 0.156863, 0.156863, 1 )
+custom_fonts/font = SubResource( 1 )
 text = "Choose Level"
 __meta__ = {
 "_edit_use_anchors_": false
