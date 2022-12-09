@@ -6,7 +6,7 @@ var ball_factory = BallFactory.new()
 
 var bullets=[]
 var paths=[]
-
+var lost = false
 export var bullet_speed=800
 
 var victory_timer
@@ -34,7 +34,8 @@ func fill_paths()->void:
 		if child is BasePath:
 			child.connect("fast",self,"on_fast")
 			child.connect("collapse",self,"on_collapsed")
-			child.connect("ccollision",self,"on_collision")
+			child.connect("collision",self,"on_collision")
+			child.connect("lost",self,"on_lost")
 			paths.append(child)
 
 func on_fast()->void:
@@ -45,6 +46,8 @@ func on_collapsed()->void:
 	
 func on_collision()->void:
 	collapse_happened=true
+func on_lost()->void:
+	lost=true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -60,10 +63,10 @@ func _process(delta: float) -> void:
 		sounds_instance.get_node("Rolling").play()
 		play_roll=false
 		
-	if lost() && 0==get_balls_count():
+	if lost:
 		get_tree().change_scene("res://Level_Choose.tscn")
 		
-	if !lost() && 0 == get_balls_count():
+	if !lost && get_balls_count()==0:
 		if victory_timer.is_stopped():
 			victory_timer.start() #if we change level immediately, sound will stop to play
 		if !sounds_instance.get_node("Victory").playing:
@@ -76,12 +79,6 @@ func get_balls_count()->int:
 	for p in paths:
 			count+=p.get_balls_count()
 	return count
-
-func lost()->bool:
-	for p in paths:
-		if p.lost:
-			return true
-	return false
 
 func _physics_process(delta: float) -> void:
 	#move projectiles
@@ -121,7 +118,8 @@ func move_bullets(delta):
 				collision_happend=true
 				for p in paths:
 					var done = p.fit_new_ball(bullets[i],collision.collider)
-					break
+					if done:
+						break
 				bullets.remove(i)
 				dirty=true
 				break
