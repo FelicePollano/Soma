@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Level3Path1.gd" type="Script" id=1]
+[ext_resource path="res://Level3Path2.gd" type="Script" id=2]
+[ext_resource path="res://Level2.gd" type="Script" id=3]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 33.1486, 123.377, -49.8903, -128.289, 49.8903, 128.289, 88.3843, 265.921, -58.7993, -33.8541, 58.7993, 33.8541, 287.946, 513.591, 0, 0, 0, 0, 491.071, 563.481, -121.162, 71.2719, 121.162, -71.2719, 736.959, 511.809, 32.0724, 89.0899, -32.0724, -89.0899, 940.083, 278.394, 108.69, -108.69, -108.69, 108.69, 635.396, 324.721 )
+}
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 131.192, 78.5618, -153.235, 7.12719, 153.235, -7.12719, 332.535, 263.869, -181.743, 5.34539, 181.743, -5.34539, 512.496, 96.3798, -53.4539, -96.2171, 53.4539, 96.2171, 822.529, 107.071, 0, 0, 0, 0, 617.622, 276.341 )
+}
+
+[node name="Level2" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="FrogPosition" type="Position2D" parent="."]
+position = Vector2( 495.684, 323.296 )
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2( 28.5529, -32.3431 )
+curve = SubResource( 1 )
+script = ExtResource( 1 )
+
+[node name="Path2D2" type="Path2D" parent="."]
+position = Vector2( 3.56348, -40.9814 )
+curve = SubResource( 2 )
+script = ExtResource( 2 )

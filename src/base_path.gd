@@ -11,6 +11,7 @@ var lost = false
 signal fast
 signal collapse
 signal collision
+signal lost
 
 export var pull_speed = 50.0
 
@@ -28,6 +29,9 @@ func spawn_balls(distance):
 		main_strip.append(ball)
 		add_child(ball)	
 	level_max_balls-=howmany
+func _process(delta: float) -> void:
+	if lost && get_balls_count()==0:
+		emit_signal("lost")
 
 func _physics_process(delta: float) -> void:
 	arrange_strips()

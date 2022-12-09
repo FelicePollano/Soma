@@ -48,6 +48,10 @@ margin_top = 195.0
 margin_right = 593.0
 margin_bottom = 235.0
 text = "Level 1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Button_level2" type="Button" parent="."]
+margin_left = 439.96
+margin_top = 253.246
+margin_right = 592.96
+margin_bottom = 293.246
+text = "Level 2"
