@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "BaseLevel",
 "language": "GDScript",
 "path": "res://base_level.gd"
+}, {
+"base": "Path2D",
+"class": "BasePath",
+"language": "GDScript",
+"path": "res://base_path.gd"
 } ]
 _global_script_class_icons={
 "BallFactory": "",
-"BaseLevel": ""
+"BaseLevel": "",
+"BasePath": ""
 }
 
 [application]
